@@ -1,0 +1,544 @@
+/* --- CSS Global & Reset --- */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* --- :root (Princípio DRY - Variáveis Globais) --- */
+:root {
+    --cor-background: #111214;
+    --cor-background-secundaria: #1a1b1e;
+    --cor-texto-principal: #f0f0f0;
+    --cor-texto-secundario: #a0a0a0;
+    --cor-primaria: #00ffff;
+    --cor-borda: #333;
+    --fonte-principal: 'Inter', sans-serif;
+    --fonte-titulos: 'Orbitron', sans-serif;
+}
+
+/* --- Estilos Base do Body --- */
+body {
+    font-family: var(--fonte-principal);
+    background-color: var(--cor-background);
+    background-image: radial-gradient(circle at 1% 1%, rgba(0, 255, 255, 0.05), transparent 25%),
+        radial-gradient(circle at 99% 99%, rgba(0, 255, 255, 0.05), transparent 25%);
+    background-attachment: fixed;
+    color: var(--cor-texto-principal);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* --- Definições de Fontes Variáveis Locais (@font-face) --- */
+@font-face {
+    font-family: 'Inter';
+    src: url('../assets/fonts/Inter.ttf') format('truetype-variations');
+    font-weight: 100 900;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    src: url('../assets/fonts/Orbitron.ttf') format('truetype-variations');
+    font-weight: 400 900;
+    font-display: swap;
+}
+
+/* =================================================================== */
+/* =================== 1. Header & Navigation ======================== */
+/* =================================================================== */
+#main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem 5%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+}
+
+#main-nav a {
+    color: var(--cor-texto-principal);
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+#main-nav a:hover {
+    color: var(--cor-primaria);
+}
+
+/* =================================================================== */
+/* =================== 2. Home Section (Hero) ======================== */
+/* =================================================================== */
+#home {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5%;
+    padding-top: 80px;
+}
+
+.home-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.home-content-text {
+    max-width: 600px;
+}
+
+.home-content-text h1 {
+    font-family: var(--fonte-titulos);
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin: 0.5rem 0;
+}
+
+.home-content-text h2 {
+    font-family: var(--fonte-titulos);
+    font-size: 1.5rem;
+    color: var(--cor-primaria);
+    margin-bottom: 1.5rem;
+}
+
+.home-content-text .description {
+    color: var(--cor-texto-secundario);
+    margin-bottom: 2rem;
+}
+
+.home-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: var(--cor-primaria);
+    color: var(--cor-background);
+    border-color: var(--cor-primaria);
+}
+
+.btn-primary:hover {
+    background-color: transparent;
+    color: var(--cor-primaria);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--cor-primaria);
+    border-color: var(--cor-primaria);
+}
+
+.btn-secondary:hover {
+    background-color: var(--cor-primaria);
+    color: var(--cor-background);
+}
+
+.home-content-image img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--cor-primaria);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+}
+
+/* =================================================================== */
+/* =================== ESTILOS GERAIS DE SEÇÃO (DRY) ================= */
+/* =================================================================== */
+section {
+    padding: 6rem 5%;
+}
+
+.section-title {
+    font-family: var(--fonte-titulos);
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 4rem;
+    color: var(--cor-texto-principal);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--cor-primaria);
+    margin: 10px auto 0;
+}
+
+/* =================================================================== */
+/* =================== COMPONENTE ABSTRATO: CARD (DRY) =============== */
+/* =================================================================== */
+.card {
+    background-color: var(--cor-background-secundaria);
+    border: 1px solid var(--cor-borda);
+    border-radius: 40px; 
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    display: flex; 
+    flex-direction: column; 
+}
+
+.card:hover {
+    transform: translateY(-50px); 
+    border-color: var(--cor-primaria);
+    background-color: rgba(0, 255, 255, 0.05);
+}
+
+/* =================================================================== */
+/* =================== 3. About Section (Especialidades) ============= */
+/* =================================================================== */
+.specialties-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.specialty-card {
+    flex-basis: 350px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+}
+
+.specialty-card .icon-box {
+    font-size: 3rem;
+    color: var(--cor-primaria);
+    margin-bottom: 1.5rem;
+}
+
+.specialty-card h3 {
+    font-family: var(--fonte-titulos);
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--cor-texto-principal);
+}
+
+.specialty-card p {
+    color: var(--cor-texto-secundario);
+    font-size: 0.95rem;
+}
+
+/* =================================================================== */
+/* =================== 4. Skills Section (Arsenal) =================== */
+/* =================================================================== */
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.skill-item {
+    flex-basis: 140px;
+    padding: 1.5rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+.skill-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--cor-primaria);
+    background-color: rgba(0, 255, 255, 0.05);
+}
+
+.skill-item i {
+    font-size: 2.5rem;
+    color: var(--cor-texto-principal);
+    transition: color 0.3s ease;
+}
+
+.skill-item:hover i {
+    color: var(--cor-primaria);
+}
+
+.skill-item span {
+    font-family: var(--fonte-titulos);
+    font-size: 0.9rem;
+    color: var(--cor-texto-secundario);
+    letter-spacing: 1px;
+}
+
+/* =================================================================== */
+/* =================== 5. Portfolio Section (Missões) ================ */
+/* =================================================================== */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.portfolio-card {
+    overflow: hidden;
+}
+
+.portfolio-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.portfolio-card-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+
+.portfolio-card-content h3 {
+    font-family: var(--fonte-titulos);
+    font-size: 1.3rem;
+    color: var(--cor-texto-principal);
+    margin-bottom: 1rem;
+}
+
+.portfolio-card-content p {
+    color: var(--cor-texto-secundario);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.portfolio-card-content .btn {
+    align-self: flex-start;
+}
+
+/* =================================================================== */
+/* =================== 6. Contact Section ============================ */
+/* =================================================================== */
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: start;
+}
+
+#contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+#contact-form .form-group {
+    width: 100%;
+}
+
+#contact-form input,
+#contact-form textarea {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 8px;
+    color: var(--cor-texto-principal);
+    font-family: var(--fonte-principal);
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+#contact-form input:focus,
+#contact-form textarea:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+}
+
+#contact-form button[type="submit"] {
+    align-self: flex-start;
+    cursor: pointer;
+}
+
+.map-container {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    filter: grayscale(1) invert(1);
+}
+
+@media (max-width: 900px) {
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =================================================================== */
+/* =================== 7. Footer ===================================== */
+/* =================================================================== */
+#main-footer {
+    padding: 2.5rem 5%;
+    text-align: center;
+}
+
+.social-links {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.social-links a {
+    color: var(--cor-texto-secundario);
+    font-size: 1.75rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--cor-primaria);
+    transform: translateY(-3px);
+}
+
+.copyright {
+    color: var(--cor-texto-secundario);
+    font-size: 0.9rem;
+}
+
+/* =================================================================== */
+/* =================== 8. Form Validation States ===================== */
+/* =================================================================== */
+.form-group.error .error-message {
+    display: block;
+    color: #ff4a4a;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group.error input,
+.form-group.error textarea {
+    border-color: #ff4a4a;
+    box-shadow: 0 0 5px rgba(255, 74, 74, 0.5);
+}
+
+.form-group.error input:focus,
+.form-group.error textarea:focus {
+    border-color: #ff4a4a;
+}
+
+/* =================================================================== */
+/* =================== 9. Scrollbar Custom (DRY) =================== */
+/* =================================================================== */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--cor-background);
+    border-left: 1px solid var(--cor-borda);
+}
+
+::-webkit-scrollbar-thumb {
+    border: 1px solid var(--cor-borda);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--cor-primaria);
+    border-color: var(--cor-primaria);
+}
+
+/* =================================================================== */
+/* =================== 10. MÓDULO UPGRADE (Glassmorphism) ============ */
+/* =================================================================== */
+#main-header,
+.specialty-card,
+.skill-item,
+.portfolio-card,
+#contact-form input,
+#contact-form textarea,
+#main-footer,
+::-webkit-scrollbar-thumb {
+    background-color: rgba(26, 27, 30, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+#main-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* =================================================================== */
+/* =================== 11. MÓDULO UPGRADE (Animação de Scroll) ======== */
+/* =================================================================== */
+.section-title,
+.card,
+.skill-item,
+#contact-form,
+.map-container {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.section-title.animate,
+.card.animate,
+.skill-item.animate,
+#contact-form.animate,
+.map-container.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/*=================================================================== /
+/ =================== COMPONENTE ABSTRATO: CARD (DRY) =============== /
+/ =================================================================== */
+.card {
+background-color: var(--cor-background-secundaria);
+border: 1px solid var(--cor-borda);
+border-radius: 40px;
+transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.card:hover {
+transform: translateY(-20px);
+border-color: var(--cor-primaria);
+}
